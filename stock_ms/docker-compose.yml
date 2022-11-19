@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  stock:
+    build: .
+    volumes:
+      - .:/django
+    ports:
+      - 9000:9000
+    image: stock-service:latest
+    container_name: django_container_stock
+    command: python manage.py runserver 0.0.0.0:9000
+    depends_on:
+      - db
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=dcachof6ive69o
+      - POSTGRES_USER=wvqdyuqgzjpotd
+      - POSTGRES_PASSWORD=1e5bb05f1818392c3c32e669aa1636359757e67533caeffb8832ce126e5b00ad
+    container_name: postgres_db_stock
+
+
