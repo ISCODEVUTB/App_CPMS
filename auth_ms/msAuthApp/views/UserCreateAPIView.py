@@ -5,7 +5,7 @@ from rest_framework import generics, response, status
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 # Imported user serializer
-from msAuthApp.serializers import UserSerializer
+from msAuthApp.serializers.UserSerializer import UserSerializer
 
 
 # CreateAPIView (method: POST)
