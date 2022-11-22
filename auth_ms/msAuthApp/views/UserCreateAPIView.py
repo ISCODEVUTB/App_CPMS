@@ -5,7 +5,7 @@ from rest_framework import generics, response, status
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 # Imported user serializer
-from ..serializers.UserSerializer import UserSerializer
+from ..serializers import UserSerializer
 
 
 # CreateAPIView (method: POST)
