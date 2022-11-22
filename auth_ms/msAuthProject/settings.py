@@ -97,10 +97,10 @@ WSGI_APPLICATION = 'msAuthProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd2e8a8293qpa8q',
-        'USER': 'ysqqnqkjaypchn',
-        'PASSWORD': '328dc1f0ca3e8b4d8308d477d6d2cb8dfc6e07484ee91bfd2f77500dc7c39761',
-        'HOST': 'ec2-44-209-57-4.compute-1.amazonaws.com',
+        'NAME': 'auth_service_db_8pl9',
+        'USER': 'auth_utb',
+        'PASSWORD': 'OrdIqP9UBKkxJIhqR7mpxs7FBoYqqAq1',
+        'HOST': 'dpg-cdu3bbpa6gdv3spc8h5g-a.ohio-postgres.render.com',
         'PORT': '5432',
     }
 }
