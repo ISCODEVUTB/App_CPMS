@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'stock.wsgi.application'
 DATABASES = {
     'default':{
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dcachof6ive69o',
-        'USER': 'wvqdyuqgzjpotd',
-        'PASSWORD': '1e5bb05f1818392c3c32e669aa1636359757e67533caeffb8832ce126e5b00ad',
-        'HOST': 'ec2-35-170-21-76.compute-1.amazonaws.com',
+        'NAME': 'stock_service_db',
+        'USER': 'stock_utb',
+        'PASSWORD': 'ySv32f8PfEznE3Qhsmhc2Y38XOvhbFfD',
+        'HOST': 'dpg-cdu2od5a499837ncvkt0-a.oregon-postgres.render.com',
         'PORT': 5432, 
     }
 }
