@@ -9,7 +9,7 @@ class Product(BaseModel):
     quantity:int
     price:int
     product_pic:str
-    cart_quantity:int
+    cart_quantity:int = 1
 
     
 

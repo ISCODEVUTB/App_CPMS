@@ -31,10 +31,9 @@ async def add_list(id_client:int):
 
 #put methods
 @wish_list.put('/wish_list/add_product/{id_client}')
-async def add_product(id_client:int, product_id:int, prod_name:str, prod_desc:str, prod_type:str, prod_quantity:int, prod_price:int, prod_pic:str):
-    product_ex = Product(id_prod= product_id, name=prod_name, description=prod_desc, type_prod=prod_type, quantity=prod_quantity, price=prod_price, product_pic=prod_pic)
+async def add_product(id_client:int, product: Product):
 
-    collection_name.update_many({'id_client':id_client}, { "$push": {"items":dict(product_ex)} }, upsert = True)
+    collection_name.update_many({'id_client':id_client}, { "$push": {"items":dict(product)} }, upsert = True)
 
     wish_list = listsEntity(collection_name.find({'id_client':id_client}))
     return {"status":"ok", "data": wish_list}

@@ -32,23 +32,20 @@ async def add_cart(id_client:int):
 
 #put methods
 @cart.put('/cart/add_product/{id_client}')
-async def add_product(id_client:int):
+async def add_product(id_client:int, product: Product):
     
     id_prod = 0
-    response1 = requests.get('https://stock-service-utb.herokuapp.com/products/27')
-    product = response1.json()
-    product_ex = Product(id_prod=product['id'], name=product['Name'], description=product['Desc'], type_prod=product['Type'], quantity=product['Quantity'], price=product['Price'], product_pic=product['Product_pic'], cart_quantity=1)
     
     cart = cartsEntity(collection_name.find({'id_client':id_client}))
     for key, val in cart[0].items():
         if 'items' in key:
             for i in range(len(val)):
                 for valor in val[i]:
-                    if val[i]["id_prod"] == product['id']:
-                        id_prod= val[i]["id_prod"]
+                    if val[i]["id_prod"] == product.id_prod:
+                        id_prod = val[i]["id_prod"]
                         break
     if id_prod == 0:
-        collection_name.update_many({'id_client':id_client}, { "$push": {"items":dict(product_ex)} }, upsert = True)
+        collection_name.update_many({'id_client':id_client}, { "$push": {"items":dict(product)} }, upsert = True)
     else:
         collection_name.update_many({'id_client':id_client, 'items.id_prod':id_prod}, { "$inc": { "items.$.cart_quantity":1 } }, upsert = True)
 

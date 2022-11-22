@@ -64,7 +64,7 @@ def active(request, id=0):
 @csrf_exempt
 def addProductFromProvider(request):
     if request.method == 'GET':
-        response1 = requests.get('https://provider-service-utb.herokuapp.com/providers')
+        response1 = requests.get('https://provider-serviceutb.onrender.com/providers')
         providers = response1.json()
         return JsonResponse(providers['data'], safe=False)
 
@@ -74,14 +74,14 @@ def addProductFromProvider(request):
         id_prod = request.GET['id_prod']
         requested_quantity = request.GET['quantity']
 
-        response1 = requests.get('https://provider-service-utb.herokuapp.com/providers')
+        response1 = requests.get('https://provider-serviceutb.onrender.com/providers')
         providers = response1.json()
 
         for provider in providers['data']:
             if provider['name'] == provider_name:
                 id_provider = provider['id']
 
-        response2 = requests.get('https://provider-service-utb.herokuapp.com/provider/'+str(id_provider)+'/'+str(id_prod))
+        response2 = requests.get('https://provider-serviceutb.onrender.com/provider/'+str(id_provider)+'/'+str(id_prod))
         product1 = response2.json()
 
         product1['Quantity'] = requested_quantity
