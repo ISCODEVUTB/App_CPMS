@@ -138,4 +138,4 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ['https://stock-serviceutb.onrender.com/']
+CSRF_TRUSTED_ORIGINS = ['https://stock-serviceutb.onrender.com']
