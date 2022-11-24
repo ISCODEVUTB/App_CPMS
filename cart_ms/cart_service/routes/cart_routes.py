@@ -2,7 +2,6 @@ from fastapi import APIRouter
 from ..config.db import collection_name
 from ..schemas.cart_schema import cartsEntity
 from ..models.models import Cart, Product
-import requests
 
 cart = APIRouter()
 
