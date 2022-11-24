@@ -11,7 +11,8 @@ class UserModifyView(generics.UpdateAPIView):
 
     def patch(self, request, *args, **kwargs):
         user = self.queryset.get(pk=kwargs['pk'])
-        serializer = self.get_serializer(instance=user, data=request.data, partial=True)
+        serializer = self.get_serializer(
+            instance=user, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()

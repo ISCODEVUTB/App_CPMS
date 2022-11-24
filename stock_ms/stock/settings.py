@@ -78,13 +78,13 @@ WSGI_APPLICATION = 'stock.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default':{
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'stock_service_db',
         'USER': 'stock_utb',
         'PASSWORD': 'ySv32f8PfEznE3Qhsmhc2Y38XOvhbFfD',
         'HOST': 'dpg-cdu2od5a499837ncvkt0-a.oregon-postgres.render.com',
-        'PORT': 5432, 
+        'PORT': 5432,
     }
 }
 

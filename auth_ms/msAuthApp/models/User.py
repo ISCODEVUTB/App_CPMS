@@ -29,7 +29,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('Email', max_length=50, unique=True)
     first_name = models.CharField('first_name', max_length=50)
     last_name = models.CharField('last_name', max_length=50)
-    profile_pic = models.FileField(default='https://res.cloudinary.com/dmazhveet/image/upload/v1669045780/user-profile/default_upvxyl.jpg', upload_to='user-profile', blank=True)
+    profile_pic = models.FileField(
+        default='https://res.cloudinary.com/dmazhveet/image/upload/v1669045780/user-profile/default_upvxyl.jpg', upload_to='user-profile', blank=True)
     birth_date = models.DateField('birth_date')
 
     def save(self, **kwargs):

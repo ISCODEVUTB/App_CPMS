@@ -3,7 +3,7 @@ def cartEntity(cart) -> dict:
         "id_client": cart["id_client"],
         "total": sum([cart["items"][i]["cart_quantity"] * cart["items"][i]["price"] for i in range(len(cart["items"]))]),
         "items": [{
-            "id_prod":cart["items"][i]["id_prod"],
+            "id_prod": cart["items"][i]["id_prod"],
             "name":cart["items"][i]["name"],
             "description":cart["items"][i]["description"],
             "type_prod":cart["items"][i]["type_prod"],
@@ -14,6 +14,7 @@ def cartEntity(cart) -> dict:
             "total_item":cart["items"][i]["cart_quantity"] * cart["items"][i]["price"],
         }for i in range(len(cart["items"]))],
     }
+
 
 def cartsEntity(carts) -> list:
     return [cartEntity(cart) for cart in carts]

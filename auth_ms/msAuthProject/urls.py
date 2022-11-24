@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView)
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView, TokenRefreshView)
 from msAuthApp import views
 
 from msAuthProject import settings
@@ -25,7 +26,7 @@ urlpatterns = [
     path('login/', TokenObtainPairView.as_view()),
     path('refresh/', TokenRefreshView.as_view()),
     path('verifyToken/', views.VerifyTokenView.as_view()),
-    
+
     path('user/<int:pk>/', views.UserDetailView.as_view()),
     path('user/create/', views.UserCreateAPIView.as_view()),
     path('user/modify/<int:pk>', views.UserModifyView.as_view()),

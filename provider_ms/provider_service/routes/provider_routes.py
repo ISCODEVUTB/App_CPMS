@@ -8,22 +8,22 @@ from bson import ObjectId
 provider = APIRouter()
 
 
-
-#get methods
+# get methods
 @provider.get('/providers')
 async def get_providers():
     providers = providersEntity(collection_name.find())
-    return {"status":"ok", "data": providers}
+    return {"status": "ok", "data": providers}
 
 
 @provider.get('/provider/{id}')
 async def get_provider_by_id(id: str):
-    provider = providersEntity(collection_name.find({'_id':ObjectId(id)}))
-    return {"status":"ok", "data": provider}
+    provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
+    return {"status": "ok", "data": provider}
+
 
 @provider.get('/provider/{id}/{id_prod}')
-async def get_provider_by_id_with_product(id: str, id_prod:int):
-    provider = providersEntity(collection_name.find({'_id':ObjectId(id)}))
+async def get_provider_by_id_with_product(id: str, id_prod: int):
+    provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
 
     for key, val in provider[0].items():
         if 'items' in key:
@@ -31,57 +31,63 @@ async def get_provider_by_id_with_product(id: str, id_prod:int):
                 for valor in val[i]:
                     if val[i]["id_prod"] == id_prod:
                         return {
-                            "Name":val[i]["name"],
+                            "Name": val[i]["name"],
                             "Desc": val[i]['description'],
                             "Type": val[i]['type_prod'],
                             "Quantity": val[i]['quantity'],
                             "Price": val[i]['price'],
-                            "Provider_id":id,
-                            "Provider_id_prod":val[i]['id_prod']
+                            "Provider_id": id,
+                            "Provider_id_prod": val[i]['id_prod']
                         }
-    
 
 
-#post method
+# post method
 @provider.post('/provider')
-async def add_provider(name:str):
+async def add_provider(name: str):
     providerObj = Provider(name=name, items=[])
     _id = collection_name.insert_one(dict(providerObj))
-    provider = providersEntity(collection_name.find({'_id':_id.inserted_id}))
-    return {"status":"ok", "data": provider}
+    provider = providersEntity(collection_name.find({'_id': _id.inserted_id}))
+    return {"status": "ok", "data": provider}
 
-#put methods
+# put methods
+
+
 @provider.put('/provider/add_product/{id}')
-async def add_product_to_provider(id:str, id_prod:int, product_name:str, prod_description:str, type_product:str, prod_quantity:int, prod_price:int):
-    product_ex = Product(id_prod= id_prod, name=product_name, description=prod_description, type_prod=type_product, quantity=prod_quantity, price=prod_price)
+async def add_product_to_provider(id: str, id_prod: int, product_name: str, prod_description: str, type_product: str, prod_quantity: int, prod_price: int):
+    product_ex = Product(id_prod=id_prod, name=product_name, description=prod_description,
+                         type_prod=type_product, quantity=prod_quantity, price=prod_price)
 
-    collection_name.update_many({'_id':ObjectId(id)}, { "$push": {"items":dict(product_ex)} }, upsert = True)
+    collection_name.update_many({'_id': ObjectId(id)}, {
+                                "$push": {"items": dict(product_ex)}}, upsert=True)
 
-    provider = providersEntity(collection_name.find({'_id':ObjectId(id)}))
-    return {"status":"ok", "data": provider}
+    provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
+    return {"status": "ok", "data": provider}
+
 
 @provider.put('/provider/remove_product/{id}/{id_prod}')
-async def remove_product_from_provider(id:str, id_prod:int):
+async def remove_product_from_provider(id: str, id_prod: int):
 
-    collection_name.update_many({'_id':ObjectId(id)}, { "$pull": { "items":{ "id_prod":id_prod } } }, upsert = True)
+    collection_name.update_many({'_id': ObjectId(id)}, {
+                                "$pull": {"items": {"id_prod": id_prod}}}, upsert=True)
 
-    provider = providersEntity(collection_name.find({'_id':ObjectId(id)}))
-    return {"status":"ok", "data": provider}
+    provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
+    return {"status": "ok", "data": provider}
+
 
 @provider.put('/provider/{id}')
-async def change_name_provider(name:str, id: str):
-    
-    collection_name.find_one_and_update({'_id':ObjectId(id)}, { "$set": {"name" : name }})
+async def change_name_provider(name: str, id: str):
 
-    provider = providersEntity(collection_name.find({'_id':ObjectId(id)}))
-    return {"status":"ok", "data": provider}
+    collection_name.find_one_and_update(
+        {'_id': ObjectId(id)}, {"$set": {"name": name}})
 
-#delete method
+    provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
+    return {"status": "ok", "data": provider}
+
+# delete method
+
+
 @provider.delete('/provider_delete/{id}')
-async def delete_provider(id:str):
-    collection_name.find_one_and_delete({'_id':ObjectId(id)})
-    
-    return {"status":"ok", "data": []}
+async def delete_provider(id: str):
+    collection_name.find_one_and_delete({'_id': ObjectId(id)})
 
-
-
+    return {"status": "ok", "data": []}
