@@ -5,9 +5,11 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 import requests
 from django.db.models import Q
+from django.views.decorators.http import require_http_methods
 
 
 # product API that contains all the CRUD actions.
+@require_http_methods(["GET", "POST", "PUT", "DELETE"])
 def productApi(request, id=0):
     if request.method == 'GET':
         if id:
