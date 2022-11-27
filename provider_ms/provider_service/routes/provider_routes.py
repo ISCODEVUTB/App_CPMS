@@ -8,19 +8,23 @@ from bson import ObjectId
 provider = APIRouter()
 
 
-# get methods
+# Get methods:
+
+# Return a json of all the providers in the database.
 @provider.get('/providers')
 async def get_providers():
     providers = providersEntity(collection_name.find())
     return {"status": "ok", "data": providers}
 
 
+# Return a json of the requested provider depending on the id.
 @provider.get('/provider/{id}')
 async def get_provider_by_id(id: str):
     provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
     return {"status": "ok", "data": provider}
 
 
+# Return a json of a product that belongs to the provider requestd.
 @provider.get('/provider/{id}/{id_prod}')
 async def get_provider_by_id_with_product(id: str, id_prod: int):
     provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
@@ -41,7 +45,9 @@ async def get_provider_by_id_with_product(id: str, id_prod: int):
                         }
 
 
-# post method
+# Post method:
+
+# Insert a new provider in the database with the passed name.
 @provider.post('/provider')
 async def add_provider(name: str):
     providerObj = Provider(name=name, items=[])
@@ -49,9 +55,10 @@ async def add_provider(name: str):
     provider = providersEntity(collection_name.find({'_id': _id.inserted_id}))
     return {"status": "ok", "data": provider}
 
-# put methods
 
+# Put methods:
 
+# Add a product to the requested provider.
 @provider.put('/provider/add_product/{id}')
 async def add_product_to_provider(id: str, id_prod: int, product_name: str, prod_description: str, type_product: str, prod_quantity: int, prod_price: int):
     product_ex = Product(id_prod=id_prod, name=product_name, description=prod_description,
@@ -64,6 +71,7 @@ async def add_product_to_provider(id: str, id_prod: int, product_name: str, prod
     return {"status": "ok", "data": provider}
 
 
+# Remove a product to the requested provider.
 @provider.put('/provider/remove_product/{id}/{id_prod}')
 async def remove_product_from_provider(id: str, id_prod: int):
 
@@ -74,6 +82,7 @@ async def remove_product_from_provider(id: str, id_prod: int):
     return {"status": "ok", "data": provider}
 
 
+# Update the requested provider name.
 @provider.put('/provider/{id}')
 async def change_name_provider(name: str, id: str):
 
@@ -83,9 +92,10 @@ async def change_name_provider(name: str, id: str):
     provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
     return {"status": "ok", "data": provider}
 
-# delete method
 
+# Delete method:
 
+# Delete the provider from the database and return the empty data.
 @provider.delete('/provider_delete/{id}')
 async def delete_provider(id: str):
     collection_name.find_one_and_delete({'_id': ObjectId(id)})

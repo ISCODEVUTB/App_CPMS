@@ -7,6 +7,7 @@ import requests
 from django.db.models import Q
 
 
+# product API that contains all the CRUD actions.
 @csrf_exempt
 def productApi(request, id=0):
     if request.method == 'GET':
@@ -42,6 +43,7 @@ def productApi(request, id=0):
         return JsonResponse("Deleted Successfully", safe=False)
 
 
+# Return a Json of the products in the stock that have a price <= 30000.
 def popular(request):
     if request.method == 'GET':
         product = Product.objects.filter(Price__lte=30000, Active=True)
@@ -49,6 +51,7 @@ def popular(request):
         return JsonResponse(product_serilizer.data, safe=False)
 
 
+# Return a Json of the products that have the Active prop equal to True.
 def active(request, id=0):
     if request.method == 'GET':
         if id:
@@ -64,9 +67,11 @@ def active(request, id=0):
             return JsonResponse(product_serilizer.data, safe=False)
 
 
+# Add a product from the provider service.
 @csrf_exempt
 def addProductFromProvider(request):
     if request.method == 'GET':
+        # Request all the providers from the provider service.
         response1 = requests.get(
             'https://provider-serviceutb.onrender.com/providers')
         providers = response1.json()
@@ -84,7 +89,9 @@ def addProductFromProvider(request):
         for provider in providers['data']:
             if provider['name'] == provider_name:
                 id_provider = provider['id']
-
+        
+        # Request a specific product from a specific provider from the provider 
+        # service passing the id of the provider and the id of the product.
         response2 = requests.get(
             'https://provider-serviceutb.onrender.com/provider/'+str(id_provider)+'/'+str(id_prod))
         product1 = response2.json()
@@ -115,6 +122,7 @@ def addProductFromProvider(request):
                 return JsonResponse("Failed to Add", safe=False)
 
 
+# Return a Json of the serached product if nothing is found return that.
 def SearchProduct(request):
     if request.method == 'GET':
 
@@ -132,6 +140,7 @@ def SearchProduct(request):
             return JsonResponse("No products found", safe=False)
 
 
+# Return a Json the products depending on the type they have.
 def ProductByType(request):
     if request.method == 'GET':
 

@@ -1,3 +1,4 @@
+# Return a dictionary with the structure of the json. 
 def providerEntity(provider) -> dict:
     return {
         "id": str(provider["_id"]),
@@ -12,6 +13,6 @@ def providerEntity(provider) -> dict:
         }for i in range(len(provider["items"]))],
     }
 
-
+# Return a list of the dictionaries retrieved from the database.
 def providersEntity(providers) -> list:
     return [providerEntity(provider) for provider in providers]

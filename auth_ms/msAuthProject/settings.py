@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import django_heroku
-import os
+from os import getenv
 from datetime import timedelta
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -99,7 +100,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'auth_service_db_8pl9',
         'USER': 'auth_utb',
-        'PASSWORD': 'OrdIqP9UBKkxJIhqR7mpxs7FBoYqqAq1',
+        'PASSWORD': getenv("PASSWORD"),
         'HOST': 'dpg-cdu3bbpa6gdv3spc8h5g-a.ohio-postgres.render.com',
         'PORT': '5432',
     }

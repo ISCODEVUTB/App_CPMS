@@ -6,20 +6,25 @@ from ..models.models import Cart, Product
 cart = APIRouter()
 
 
-# get methods
+# Get methods:
+
+# Return a json of all the carts in the database.
 @cart.get('/cart')
 async def get_carts():
     carts = cartsEntity(collection_name.find())
     return {"status": "ok", "data": carts}
 
 
+# Return a json of the requested cart depending on the id.
 @cart.get('/cart_client/{id_client}')
 async def get_cart_client(id_client: int):
     cart = cartsEntity(collection_name.find({'id_client': id_client}))
     return {"status": "ok", "data": cart}
 
 
-# post method
+# Post method:
+
+# Insert a new cart in the database with the passed id.
 @cart.post('/cart')
 async def add_cart(id_client: int):
     cart = Cart(id_client=id_client, total=0, items=[])
@@ -28,7 +33,9 @@ async def add_cart(id_client: int):
     return {"status": "ok", "data": cart}
 
 
-# put methods
+# Put methods:
+
+# Add a product to a cart if already in the cart increase its quantity.
 @cart.put('/cart/add_product/{id_client}')
 async def add_product(id_client: int, product: Product):
 
@@ -53,6 +60,7 @@ async def add_product(id_client: int, product: Product):
     return {"status": "ok", "data": cart_final}
 
 
+# Remove product from the requested cart.
 @cart.put('/cart/remove_product/{id_client}/{id_prod}')
 async def remove_product(id_client: int, id_prod: int):
 
@@ -63,6 +71,7 @@ async def remove_product(id_client: int, id_prod: int):
     return {"status": "ok", "data": cart}
 
 
+# Increase the quantity of a product in a cart.
 @cart.put('/cart/increase_product/{id_client}/{id_prod}')
 async def increase_product(id_client: int, id_prod: int):
 
@@ -73,6 +82,7 @@ async def increase_product(id_client: int, id_prod: int):
     return {"status": "ok", "data": cart}
 
 
+# Lessen the quantity of a product in a cart and if quantity=0 delete it.
 @cart.put('/cart/decrease_product/{id_client}/{id_prod}')
 async def decrease_product(id_client: int, id_prod: int):
 

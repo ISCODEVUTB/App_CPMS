@@ -1,4 +1,8 @@
 def cartEntity(cart) -> dict:
+    """Return a dictionary
+
+    Json structure for the Cart object that'll be used within the app.
+    """
     return {
         "id_client": cart["id_client"],
         "total": sum([cart["items"][i]["cart_quantity"] * cart["items"][i]["price"] for i in range(len(cart["items"]))]),
@@ -17,4 +21,8 @@ def cartEntity(cart) -> dict:
 
 
 def cartsEntity(carts) -> list:
+    """Return a list
+
+    List of the dictionaries retrieved from the data base.
+    """
     return [cartEntity(cart) for cart in carts]
