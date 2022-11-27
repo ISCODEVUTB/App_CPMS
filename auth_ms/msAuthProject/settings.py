@@ -13,6 +13,13 @@ import django_heroku
 from os import getenv
 from datetime import timedelta
 from pathlib import Path
+from django.conf import settings
+
+settings.configure(DEBUG=True)  # Sensitive when set to True
+settings.configure(DEBUG_PROPAGATE_EXCEPTIONS=True)  # Sensitive when set to True
+
+def custom_config(config):
+    settings.configure(default_settings=config, DEBUG=True)  # Sensitive
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +32,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rb^is2ba%f1^t$law+ryrg8k520*5+yvbs!w8cblpsd9ws6q=7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
