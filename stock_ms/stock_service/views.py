@@ -8,7 +8,6 @@ from django.db.models import Q
 
 
 # product API that contains all the CRUD actions.
-@csrf_exempt
 def productApi(request, id=0):
     if request.method == 'GET':
         if id:
@@ -68,7 +67,6 @@ def active(request, id=0):
 
 
 # Add a product from the provider service.
-@csrf_exempt
 def addProductFromProvider(request):
     if request.method == 'GET':
         # Request all the providers from the provider service.
