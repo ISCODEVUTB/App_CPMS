@@ -100,7 +100,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'auth_service_db_8pl9',
         'USER': 'auth_utb',
-        'PASSWORD': getenv("PASSWORD"),
+        'PASSWORD': getenv("PASSWORD",'OrdIqP9UBKkxJIhqR7mpxs7FBoYqqAq1'),
         'HOST': 'dpg-cdu3bbpa6gdv3spc8h5g-a.ohio-postgres.render.com',
         'PORT': '5432',
     }
