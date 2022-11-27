@@ -5,11 +5,11 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 import requests
 from django.db.models import Q
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_safe
 
 
 # product API that contains all the CRUD actions.
-@require_http_methods(["POST"])
+@require_safe
 def productApi(request, id=0):
     if request.method == 'GET':
         if id:
@@ -69,6 +69,7 @@ def active(request, id=0):
 
 
 # Add a product from the provider service.
+@require_safe
 def addProductFromProvider(request):
     if request.method == 'GET':
         # Request all the providers from the provider service.
