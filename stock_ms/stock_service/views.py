@@ -5,7 +5,7 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 import requests
 from django.db.models import Q
-from django.views.decorators.http import require_safe
+from django.views.decorators.http import require_safe, require_GET
 
 
 # product API that contains all the CRUD actions.
@@ -45,6 +45,7 @@ def productApi(request, id=0):
 
 
 # Return a Json of the products in the stock that have a price <= 30000.
+@require_GET
 def popular(request):
     if request.method == 'GET':
         product = Product.objects.filter(Price__lte=30000, Active=True)
@@ -53,6 +54,7 @@ def popular(request):
 
 
 # Return a Json of the products that have the Active prop equal to True.
+@require_GET
 def active(request, id=0):
     if request.method == 'GET':
         if id:
@@ -124,6 +126,7 @@ def addProductFromProvider(request):
 
 
 # Return a Json of the serached product if nothing is found return that.
+@require_GET
 def SearchProduct(request):
     if request.method == 'GET':
 
@@ -142,6 +145,7 @@ def SearchProduct(request):
 
 
 # Return a Json the products depending on the type they have.
+@require_GET
 def ProductByType(request):
     if request.method == 'GET':
 
