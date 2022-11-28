@@ -83,6 +83,7 @@ def get_providers(request):
         return JsonResponse(providers['data'], safe=False)
 
 
+# Get the provider id from the provider service.
 def get_provider_id(name):
     response1 = requests.get(
         'https://provider-serviceutb.onrender.com/providers')
