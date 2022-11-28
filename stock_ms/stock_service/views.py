@@ -71,6 +71,8 @@ def active(request, id=0):
             return JsonResponse(product_serilizer.data, safe=False)
 
 # Get all the providers from the providers service
+
+
 @require_GET
 def get_providers(request):
     if request.method == 'GET':
@@ -81,6 +83,18 @@ def get_providers(request):
         return JsonResponse(providers['data'], safe=False)
 
 
+def get_provider_id(name):
+    response1 = requests.get(
+        'https://provider-serviceutb.onrender.com/providers')
+    providers = response1.json()
+
+    for provider in providers['data']:
+        if provider['name'] == name:
+            id_provider = provider['id']
+
+    return str(id_provider)
+
+
 # Add a product from the provider service.
 @require_POST
 def add_product_from_provider(request):
@@ -89,18 +103,10 @@ def add_product_from_provider(request):
         id_prod = request.GET['id_prod']
         requested_quantity = request.GET['quantity']
 
-        response1 = requests.get(
-            'https://provider-serviceutb.onrender.com/providers')
-        providers = response1.json()
-
-        for provider in providers['data']:
-            if provider['name'] == provider_name:
-                id_provider = provider['id']
-        
-        # Request a specific product from a specific provider from the provider 
+        # Request a specific product from a specific provider from the provider
         # service passing the id of the provider and the id of the product.
         response2 = requests.get(
-            'https://provider-serviceutb.onrender.com/provider/'+str(id_provider)+'/'+str(id_prod))
+            'https://provider-serviceutb.onrender.com/provider/'+get_provider_id(provider_name)+'/'+str(id_prod))
         product1 = response2.json()
 
         product1['Quantity'] = requested_quantity

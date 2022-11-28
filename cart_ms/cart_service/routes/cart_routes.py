@@ -8,6 +8,7 @@ cart = APIRouter()
 
 # Constants
 items_id_prod = 'items.id_prod'
+items_cart_quantity = 'items.$.cart_quantity'
 
 # Get methods:
 
@@ -51,7 +52,7 @@ async def add_product(id_client: int, product: Product):
 
     if id_prod != 0:
         collection_name.update_many({'id_client': id_client, items_id_prod: id_prod}, {
-                                    "$inc": {"items.$.cart_quantity": 1}}, upsert=True)
+                                    "$inc": {items_cart_quantity: 1}}, upsert=True)
     else:
         collection_name.update_many({'id_client': id_client}, {
                                     "$push": {"items": dict(product)}}, upsert=True)
@@ -76,7 +77,7 @@ async def remove_product(id_client: int, id_prod: int):
 async def increase_product(id_client: int, id_prod: int):
 
     collection_name.update_many({'id_client': id_client, items_id_prod: id_prod}, {
-                                "$inc": {"items.$.cart_quantity": 1}}, upsert=True)
+                                "$inc": {items_cart_quantity: 1}}, upsert=True)
 
     cart = carts_entity(collection_name.find({'id_client': id_client}))
     return {"status": "ok", "data": cart}
@@ -96,7 +97,7 @@ async def decrease_product(id_client: int, id_prod: int):
                                     "$pull": {"items": {"id_prod": id_prod}}}, upsert=True)
     else:
         collection_name.update_many({'id_client': id_client, items_id_prod: id_prod}, {
-                                    "$inc": {"items.$.cart_quantity": -1}}, upsert=True)
+                                    "$inc": {items_cart_quantity: -1}}, upsert=True)
 
     cart_final = carts_entity(collection_name.find({'id_client': id_client}))
     return {"status": "ok", "data": cart_final}
