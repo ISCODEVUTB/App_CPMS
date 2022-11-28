@@ -1,5 +1,5 @@
 # Return a dictionary with the structure of the json. 
-def providerEntity(provider) -> dict:
+def provider_entity(provider) -> dict:
     return {
         "id": str(provider["_id"]),
         "name": provider["name"],
@@ -14,5 +14,5 @@ def providerEntity(provider) -> dict:
     }
 
 # Return a list of the dictionaries retrieved from the database.
-def providersEntity(providers) -> list:
-    return [providerEntity(provider) for provider in providers]
+def providers_entity(providers) -> list:
+    return [provider_entity(provider) for provider in providers]

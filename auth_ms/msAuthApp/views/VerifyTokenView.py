@@ -11,11 +11,11 @@ class VerifyTokenView(TokenVerifyView):
 
     def post(self, request, *args, **kwargs):
         serializer = TokenVerifySerializer(data=request.data)
-        tokenBackend = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
+        token_backend = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
 
         try:
             serializer.is_valid(raise_exception=True)
-            token_data = tokenBackend.decode(
+            token_data = token_backend.decode(
                 request.data['token'], verify=False)
             serializer.validated_data['UserId'] = token_data['user_id']
 

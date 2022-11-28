@@ -20,9 +20,9 @@ class UserCreateAPIView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        tokenData = {"email": request.data["email"],
+        token_data = {"email": request.data["email"],
                      "password": request.data["password"]}
-        tokenSerializer = TokenObtainPairSerializer(data=tokenData)
-        tokenSerializer.is_valid(raise_exception=True)
+        token_serializer = TokenObtainPairSerializer(data=token_data)
+        token_serializer.is_valid(raise_exception=True)
 
-        return response.Response(tokenSerializer.validated_data, status=status.HTTP_201_CREATED)
+        return response.Response(token_serializer.validated_data, status=status.HTTP_201_CREATED)

@@ -1,4 +1,4 @@
-def listEntity(list) -> dict:
+def list_entity(list) -> dict:
     return {
         "id_client": list["id_client"],
         "items": [{
@@ -14,5 +14,5 @@ def listEntity(list) -> dict:
     }
 
 
-def listsEntity(lists) -> list:
-    return [listEntity(wish_list) for wish_list in lists]
+def lists_entity(lists) -> list:
+    return [list_entity(wish_list) for wish_list in lists]

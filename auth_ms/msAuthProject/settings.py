@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import django_heroku
-from os import getenv
+from decouple import config
 from datetime import timedelta
 from pathlib import Path
 
@@ -25,8 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rb^is2ba%f1^t$law+ryrg8k520*5+yvbs!w8cblpsd9ws6q=7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
+
+# Enviroment variables
+PASSWORD = config('PASSWORD')
 
 # Application definition
 
@@ -99,7 +103,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'auth_service_db_8pl9',
         'USER': 'auth_utb',
-        'PASSWORD': getenv("PASSWORD",'OrdIqP9UBKkxJIhqR7mpxs7FBoYqqAq1'),
+        'PASSWORD': PASSWORD,
         'HOST': 'dpg-cdu3bbpa6gdv3spc8h5g-a.ohio-postgres.render.com',
         'PORT': '5432',
     }

@@ -1,4 +1,5 @@
 from pathlib import Path
+from decouple import config
 import cloudinary
 import cloudinary_storage
 
@@ -13,9 +14,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-qv0=+$j=$#jmeh=z*-82mxa^xo5e+*)5mv5ja)&dmf8&uzkj2o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
+
+# Eviroment variables
+PASSWORD = config('PASSWORD')
 
 
 # Application definition
@@ -83,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'stock_service_db',
         'USER': 'stock_utb',
-        'PASSWORD': 'ySv32f8PfEznE3Qhsmhc2Y38XOvhbFfD',
+        'PASSWORD': PASSWORD,
         'HOST': 'dpg-cdu2od5a499837ncvkt0-a.oregon-postgres.render.com',
         'PORT': 5432,
     }

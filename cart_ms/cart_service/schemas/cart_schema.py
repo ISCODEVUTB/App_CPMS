@@ -1,4 +1,4 @@
-def cartEntity(cart) -> dict:
+def cart_entity(cart) -> dict:
     """Return a dictionary
 
     Json structure for the Cart object that'll be used within the app.
@@ -20,9 +20,9 @@ def cartEntity(cart) -> dict:
     }
 
 
-def cartsEntity(carts) -> list:
+def carts_entity(carts) -> list:
     """Return a list
 
     List of the dictionaries retrieved from the data base.
     """
-    return [cartEntity(cart) for cart in carts]
+    return [cart_entity(cart) for cart in carts]

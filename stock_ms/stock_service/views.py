@@ -7,10 +7,12 @@ import requests
 from django.db.models import Q
 from django.views.decorators.http import require_safe, require_GET
 
+failed_to_add = "Failed to Add"
+
 
 # product API that contains all the CRUD actions.
 @require_safe
-def productApi(request, id=0):
+def product_api(request, id=0):
     if request.method == 'GET':
         if id:
             product = Product.objects.filter(id=id)
@@ -29,7 +31,7 @@ def productApi(request, id=0):
         if product_serilizer.is_valid():
             product_serilizer.save()
             return JsonResponse("Added Succesfully", safe=False)
-        return JsonResponse("Failed to Add", safe=False)
+        return JsonResponse(failed_to_add, safe=False)
     elif request.method == 'PUT':
         product_data = JSONParser().parse(request)
         product = Product.objects.get(id=product_data['id'])
@@ -72,7 +74,7 @@ def active(request, id=0):
 
 # Add a product from the provider service.
 @require_safe
-def addProductFromProvider(request):
+def add_product_from_provider(request):
     if request.method == 'GET':
         # Request all the providers from the provider service.
         response1 = requests.get(
@@ -113,7 +115,7 @@ def addProductFromProvider(request):
             if product_serilizer.is_valid():
                 product_serilizer.save()
                 return JsonResponse({"Updated successfully": product_serilizer.data}, safe=False)
-            return JsonResponse("Failed to Add", safe=False)
+            return JsonResponse(failed_to_add, safe=False)
         else:
             if product_filter:
                 return JsonResponse("Product already in stock and no quantity provided", safe=False)
@@ -122,12 +124,12 @@ def addProductFromProvider(request):
                 if product_serilizer.is_valid():
                     product_serilizer.save()
                     return JsonResponse("Added Succesfully", safe=False)
-                return JsonResponse("Failed to Add", safe=False)
+                return JsonResponse(failed_to_add, safe=False)
 
 
 # Return a Json of the serached product if nothing is found return that.
 @require_GET
-def SearchProduct(request):
+def search_product(request):
     if request.method == 'GET':
 
         name = request.GET['name']
@@ -146,7 +148,7 @@ def SearchProduct(request):
 
 # Return a Json the products depending on the type they have.
 @require_GET
-def ProductByType(request):
+def Product_by_type(request):
     if request.method == 'GET':
 
         type_prod = request.GET['type']

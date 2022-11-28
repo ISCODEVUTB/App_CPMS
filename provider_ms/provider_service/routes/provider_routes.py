@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from ..config.db import collection_name
-from ..schemas.provider_schema import providersEntity
+from ..schemas.provider_schema import providers_entity
 from ..models.models import Provider, Product
 from bson import ObjectId
 
@@ -13,26 +13,26 @@ provider = APIRouter()
 # Return a json of all the providers in the database.
 @provider.get('/providers')
 async def get_providers():
-    providers = providersEntity(collection_name.find())
+    providers = providers_entity(collection_name.find())
     return {"status": "ok", "data": providers}
 
 
 # Return a json of the requested provider depending on the id.
 @provider.get('/provider/{id}')
 async def get_provider_by_id(id: str):
-    provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
+    provider = providers_entity(collection_name.find({'_id': ObjectId(id)}))
     return {"status": "ok", "data": provider}
 
 
 # Return a json of a product that belongs to the provider requestd.
 @provider.get('/provider/{id}/{id_prod}')
 async def get_provider_by_id_with_product(id: str, id_prod: int):
-    provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
+    provider = providers_entity(collection_name.find({'_id': ObjectId(id)}))
 
     for key, val in provider[0].items():
         if 'items' in key:
             for i in range(len(val)):
-                for valor in val[i]:
+                for value in val[i]:
                     if val[i]["id_prod"] == id_prod:
                         return {
                             "Name": val[i]["name"],
@@ -50,9 +50,9 @@ async def get_provider_by_id_with_product(id: str, id_prod: int):
 # Insert a new provider in the database with the passed name.
 @provider.post('/provider')
 async def add_provider(name: str):
-    providerObj = Provider(name=name, items=[])
-    _id = collection_name.insert_one(dict(providerObj))
-    provider = providersEntity(collection_name.find({'_id': _id.inserted_id}))
+    provider_obj = Provider(name=name, items=[])
+    _id = collection_name.insert_one(dict(provider_obj))
+    provider = providers_entity(collection_name.find({'_id': _id.inserted_id}))
     return {"status": "ok", "data": provider}
 
 
@@ -67,7 +67,7 @@ async def add_product_to_provider(id: str, id_prod: int, product_name: str, prod
     collection_name.update_many({'_id': ObjectId(id)}, {
                                 "$push": {"items": dict(product_ex)}}, upsert=True)
 
-    provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
+    provider = providers_entity(collection_name.find({'_id': ObjectId(id)}))
     return {"status": "ok", "data": provider}
 
 
@@ -78,7 +78,7 @@ async def remove_product_from_provider(id: str, id_prod: int):
     collection_name.update_many({'_id': ObjectId(id)}, {
                                 "$pull": {"items": {"id_prod": id_prod}}}, upsert=True)
 
-    provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
+    provider = providers_entity(collection_name.find({'_id': ObjectId(id)}))
     return {"status": "ok", "data": provider}
 
 
@@ -89,7 +89,7 @@ async def change_name_provider(name: str, id: str):
     collection_name.find_one_and_update(
         {'_id': ObjectId(id)}, {"$set": {"name": name}})
 
-    provider = providersEntity(collection_name.find({'_id': ObjectId(id)}))
+    provider = providers_entity(collection_name.find({'_id': ObjectId(id)}))
     return {"status": "ok", "data": provider}
 
 
