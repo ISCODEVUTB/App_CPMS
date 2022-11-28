@@ -29,20 +29,19 @@ async def get_provider_by_id(id: str):
 async def get_provider_by_id_with_product(id: str, id_prod: int):
     provider = providers_entity(collection_name.find({'_id': ObjectId(id)}))
 
-    for key, val in provider[0].items():
-        if 'items' in key:
-            for i in range(len(val)):
-                for value in val[i]:
-                    if val[i]["id_prod"] == id_prod:
-                        return {
-                            "Name": val[i]["name"],
-                            "Desc": val[i]['description'],
-                            "Type": val[i]['type_prod'],
-                            "Quantity": val[i]['quantity'],
-                            "Price": val[i]['price'],
-                            "Provider_id": id,
-                            "Provider_id_prod": val[i]['id_prod']
-                        }
+    print(provider)
+
+    for product in provider[0]['items']:
+        if product["id_prod"] == id_prod:
+            return {
+                "Name":product["name"],
+                "Desc":product['description'],
+                "Type":product['type_prod'],
+                "Quantity":product['quantity'],
+                "Price":product['price'],
+                "Provider_id": id,
+                "Provider_id_prod":product['id_prod']
+            }
 
 
 # Post method:
