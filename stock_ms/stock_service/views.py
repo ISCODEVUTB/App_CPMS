@@ -1,11 +1,10 @@
 from .models import Product
 from .serializers import ProductSerializer
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 import requests
 from django.db.models import Q
-from django.views.decorators.http import require_safe, require_GET
+from django.views.decorators.http import require_safe, require_GET, require_POST
 
 failed_to_add = "Failed to Add"
 
@@ -71,10 +70,9 @@ def active(request, id=0):
             product_serilizer = ProductSerializer(product, many=True)
             return JsonResponse(product_serilizer.data, safe=False)
 
-
-# Add a product from the provider service.
-@require_safe
-def add_product_from_provider(request):
+# Get all the providers from the providers service
+@require_GET
+def get_providers(request):
     if request.method == 'GET':
         # Request all the providers from the provider service.
         response1 = requests.get(
@@ -82,7 +80,11 @@ def add_product_from_provider(request):
         providers = response1.json()
         return JsonResponse(providers['data'], safe=False)
 
-    elif request.method == 'POST':
+
+# Add a product from the provider service.
+@require_POST
+def add_product_from_provider(request):
+    if request.method == 'POST':
         provider_name = request.GET['name']
         id_prod = request.GET['id_prod']
         requested_quantity = request.GET['quantity']
@@ -148,7 +150,7 @@ def search_product(request):
 
 # Return a Json the products depending on the type they have.
 @require_GET
-def Product_by_type(request):
+def product_by_type(request):
     if request.method == 'GET':
 
         type_prod = request.GET['type']
