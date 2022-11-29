@@ -22,6 +22,11 @@ ALLOWED_HOSTS = ['*']
 PASSWORD = config('PASSWORD')
 
 
+# csrf_exempt
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
+
+CSRF_COOKIE_DOMAIN = '.onrender.com'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -143,4 +148,4 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ['https://stock-serviceutb.onrender.com']
+

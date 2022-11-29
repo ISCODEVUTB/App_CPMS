@@ -2,6 +2,7 @@ from .models import Product
 from .serializers import ProductSerializer
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.db.models import Q
 from django.views.decorators.http import require_safe, require_GET, require_POST
@@ -97,7 +98,7 @@ def get_provider_id(name):
 
 
 # Get the parameters from the views to add a product from the provider
-@require_safe
+@csrf_exempt
 def get_params_for_provider_add(request):
 
     provider_name = request.GET['name']
@@ -109,38 +110,39 @@ def get_params_for_provider_add(request):
 
 # Add a product from the provider service.
 @require_POST
+@csrf_exempt
 def add_product_from_provider(request):
-    if request.method == 'POST':
-        # Request a specific product from a specific provider from the provider
-        # service passing the id of the provider and the id of the product.
-        response2 = requests.get(
-            'https://provider-serviceutb.onrender.com/provider/'+get_provider_id(get_params_for_provider_add(request)[0])+'/'+str(get_params_for_provider_add(request)[1]))
-        product1 = response2.json()
+    # Request a specific product from a specific provider from the provider
+    # service passing the id of the provider and the id of the product.
+    response2 = requests.get(
+        'https://provider-serviceutb.onrender.com/provider/'+get_provider_id(get_params_for_provider_add(request)[0])+'/'+str(get_params_for_provider_add(request)[1]))
+    product1 = response2.json()
 
-        product1['Quantity'] = get_params_for_provider_add(request)[2]
+    product1['Quantity'] = get_params_for_provider_add(request)[2]
 
-        product_filter = Product.objects.filter(
-            Q(Provider_id_prod=product1['Provider_id_prod']) & Q(Provider_id=product1['Provider_id']))
+    product_filter = Product.objects.filter(
+        Q(Provider_id_prod=product1['Provider_id_prod']) & Q(Provider_id=product1['Provider_id']))
 
-        if product_filter and get_params_for_provider_add(request)[2]:
-            product2 = Product.objects.get(
-                Provider_id_prod=product1['Provider_id_prod'], Provider_id=product1['Provider_id'])
-            data = {'Quantity': product2.Quantity +
-                    int(get_params_for_provider_add(request)[2])}
-            product_serilizer = ProductSerializer(
-                product2, data=data, partial=True)
+    if product_filter and get_params_for_provider_add(request)[2]:
+        product2 = Product.objects.get(
+            Provider_id_prod=product1['Provider_id_prod'], Provider_id=product1['Provider_id'])
+        data = {'Quantity': product2.Quantity +
+                int(get_params_for_provider_add(request)[2])}
+        product_serilizer = ProductSerializer(
+            product2, data=data, partial=True)
+        if product_serilizer.is_valid():
             product_serilizer.save()
             return JsonResponse({"Updated successfully": product_serilizer.data}, safe=False)
-            
+        return JsonResponse(failed_to_add, safe=False)
+    else:
+        if product_filter:
+            return JsonResponse("Product already in stock and no quantity provided", safe=False)
         else:
-            if product_filter:
-                return JsonResponse("Product already in stock and no quantity provided", safe=False)
-            else:
-                product_serilizer = ProductSerializer(data=product1)
-                if product_serilizer.is_valid():
-                    product_serilizer.save()
-                    return JsonResponse("Added Succesfully", safe=False)
-                return JsonResponse(failed_to_add, safe=False)
+            product_serilizer = ProductSerializer(data=product1)
+            if product_serilizer.is_valid():
+                product_serilizer.save()
+                return JsonResponse("Added Succesfully", safe=False)
+            return JsonResponse(failed_to_add, safe=False)
 
 
 # Return a Json of the serached product if nothing is found return that.
