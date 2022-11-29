@@ -95,30 +95,35 @@ def get_provider_id(name):
 
     return str(id_provider)
 
+@require_safe
+def get_params_for_provider_add(request):
+    
+    provider_name = request.GET['name']
+    id_prod = request.GET['id_prod']
+    requested_quantity = request.GET['quantity']
+
+    return [provider_name, id_prod, requested_quantity]
+
 
 # Add a product from the provider service.
 @require_POST
 def add_product_from_provider(request):
     if request.method == 'POST':
-        provider_name = request.GET['name']
-        id_prod = request.GET['id_prod']
-        requested_quantity = request.GET['quantity']
-
         # Request a specific product from a specific provider from the provider
         # service passing the id of the provider and the id of the product.
         response2 = requests.get(
-            'https://provider-serviceutb.onrender.com/provider/'+get_provider_id(provider_name)+'/'+str(id_prod))
+            'https://provider-serviceutb.onrender.com/provider/'+get_provider_id(get_params_for_provider_add(request)[0])+'/'+str(get_params_for_provider_add(request)[1]))
         product1 = response2.json()
 
-        product1['Quantity'] = requested_quantity
+        product1['Quantity'] = get_params_for_provider_add(request)[2]
 
         product_filter = Product.objects.filter(
             Q(Provider_id_prod=product1['Provider_id_prod']) & Q(Provider_id=product1['Provider_id']))
 
-        if product_filter and requested_quantity:
+        if product_filter and get_params_for_provider_add(request)[2]:
             product2 = Product.objects.get(
                 Provider_id_prod=product1['Provider_id_prod'], Provider_id=product1['Provider_id'])
-            data = {'Quantity': product2.Quantity + int(requested_quantity)}
+            data = {'Quantity': product2.Quantity + int(get_params_for_provider_add(request)[2])}
             product_serilizer = ProductSerializer(
                 product2, data=data, partial=True)
             if product_serilizer.is_valid():
