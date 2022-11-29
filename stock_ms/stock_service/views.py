@@ -95,9 +95,11 @@ def get_provider_id(name):
 
     return str(id_provider)
 
+
+# Get the parameters from the views to add a product from the provider
 @require_safe
 def get_params_for_provider_add(request):
-    
+
     provider_name = request.GET['name']
     id_prod = request.GET['id_prod']
     requested_quantity = request.GET['quantity']
@@ -123,13 +125,13 @@ def add_product_from_provider(request):
         if product_filter and get_params_for_provider_add(request)[2]:
             product2 = Product.objects.get(
                 Provider_id_prod=product1['Provider_id_prod'], Provider_id=product1['Provider_id'])
-            data = {'Quantity': product2.Quantity + int(get_params_for_provider_add(request)[2])}
+            data = {'Quantity': product2.Quantity +
+                    int(get_params_for_provider_add(request)[2])}
             product_serilizer = ProductSerializer(
                 product2, data=data, partial=True)
-            if product_serilizer.is_valid():
-                product_serilizer.save()
-                return JsonResponse({"Updated successfully": product_serilizer.data}, safe=False)
-            return JsonResponse(failed_to_add, safe=False)
+            product_serilizer.save()
+            return JsonResponse({"Updated successfully": product_serilizer.data}, safe=False)
+            
         else:
             if product_filter:
                 return JsonResponse("Product already in stock and no quantity provided", safe=False)
