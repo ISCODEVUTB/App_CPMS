@@ -2,7 +2,7 @@ from .models import Product
 from .serializers import ProductSerializer
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect
 import requests
 from django.db.models import Q
 from django.views.decorators.http import require_safe, require_GET, require_POST
@@ -98,7 +98,7 @@ def get_provider_id(name):
 
 
 # Get the parameters from the views to add a product from the provider
-@csrf_exempt
+@csrf_protect
 def get_params_for_provider_add(request):
 
     provider_name = request.GET['name']
@@ -110,7 +110,7 @@ def get_params_for_provider_add(request):
 
 # Add a product from the provider service.
 @require_POST
-@csrf_exempt
+@csrf_protect
 def add_product_from_provider(request):
     # Request a specific product from a specific provider from the provider
     # service passing the id of the provider and the id of the product.
