@@ -12,6 +12,7 @@ failed_to_add = "Failed to Add"
 
 # product API that contains all the CRUD actions.
 @require_safe
+@csrf_protect
 def product_api(request, id=0):
     if request.method == 'GET':
         if id:
@@ -48,6 +49,7 @@ def product_api(request, id=0):
 
 # Return a Json of the products in the stock that have a price <= 30000.
 @require_GET
+@csrf_protect
 def popular(request):
     if request.method == 'GET':
         product = Product.objects.filter(Price__lte=30000, Active=True)
@@ -57,6 +59,7 @@ def popular(request):
 
 # Return a Json of the products that have the Active prop equal to True.
 @require_GET
+@csrf_protect
 def active(request, id=0):
     if request.method == 'GET':
         if id:
@@ -75,6 +78,7 @@ def active(request, id=0):
 
 
 @require_GET
+@csrf_protect
 def get_providers(request):
     if request.method == 'GET':
         # Request all the providers from the provider service.
@@ -147,6 +151,7 @@ def add_product_from_provider(request):
 
 # Return a Json of the serached product if nothing is found return that.
 @require_GET
+@csrf_protect
 def search_product(request):
     if request.method == 'GET':
 
@@ -166,6 +171,7 @@ def search_product(request):
 
 # Return a Json the products depending on the type they have.
 @require_GET
+@csrf_protect
 def product_by_type(request):
     if request.method == 'GET':
 
