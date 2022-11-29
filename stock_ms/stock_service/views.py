@@ -2,7 +2,7 @@ from .models import Product
 from .serializers import ProductSerializer
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.db.models import Q
 from django.views.decorators.http import require_safe, require_GET, require_POST
@@ -12,7 +12,7 @@ failed_to_add = "Failed to Add"
 
 # product API that contains all the CRUD actions.
 @require_safe
-@csrf_protect
+@csrf_exempt
 def product_api(request, id=0):
     if request.method == 'GET':
         if id:
@@ -49,7 +49,6 @@ def product_api(request, id=0):
 
 # Return a Json of the products in the stock that have a price <= 30000.
 @require_GET
-@csrf_protect
 def popular(request):
     if request.method == 'GET':
         product = Product.objects.filter(Price__lte=30000, Active=True)
@@ -59,7 +58,6 @@ def popular(request):
 
 # Return a Json of the products that have the Active prop equal to True.
 @require_GET
-@csrf_protect
 def active(request, id=0):
     if request.method == 'GET':
         if id:
@@ -78,7 +76,6 @@ def active(request, id=0):
 
 
 @require_GET
-@csrf_protect
 def get_providers(request):
     if request.method == 'GET':
         # Request all the providers from the provider service.
@@ -89,6 +86,7 @@ def get_providers(request):
 
 
 # Get the provider id from the provider service.
+@csrf_exempt
 def get_provider_id(name):
     response1 = requests.get(
         'https://provider-serviceutb.onrender.com/providers')
@@ -102,7 +100,7 @@ def get_provider_id(name):
 
 
 # Get the parameters from the views to add a product from the provider
-@csrf_protect
+@csrf_exempt
 def get_params_for_provider_add(request):
 
     provider_name = request.GET['name']
@@ -114,7 +112,7 @@ def get_params_for_provider_add(request):
 
 # Add a product from the provider service.
 @require_POST
-@csrf_protect
+@csrf_exempt
 def add_product_from_provider(request):
     # Request a specific product from a specific provider from the provider
     # service passing the id of the provider and the id of the product.
@@ -151,7 +149,6 @@ def add_product_from_provider(request):
 
 # Return a Json of the serached product if nothing is found return that.
 @require_GET
-@csrf_protect
 def search_product(request):
     if request.method == 'GET':
 
@@ -171,7 +168,6 @@ def search_product(request):
 
 # Return a Json the products depending on the type they have.
 @require_GET
-@csrf_protect
 def product_by_type(request):
     if request.method == 'GET':
 
