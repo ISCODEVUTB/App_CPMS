@@ -1,10 +1,8 @@
-import unittest
+from unittest import TestCase
+import app
 
-def fibonacci(n):
-    if n <= 1:
-        return 1
-    else:
-        return fibonacci(n-2) + fibonacci(n-1)
 
-def test_fibonacci_1(self):
-    self.assertEqual(fibonacci(1), 1)
+
+class TestSuma(TestCase):
+    def test_suma(self):
+        self.assertEqual(app.suma(2,2), 4)
