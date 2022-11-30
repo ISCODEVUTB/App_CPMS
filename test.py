@@ -1,4 +1,4 @@
-from django.test import SimpleTestCase
+from unittest import SimpleTestCase
 from django.urls import reverse, resolve
 from .stock_ms.stock_service.views import product_api, popular, active, add_product_from_provider, product_by_type, search_product
 
