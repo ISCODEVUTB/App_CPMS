@@ -1,0 +1,29 @@
+<section class="section-name padding-y-sm">
+    <div class="container">
+    <header class="section-heading">
+        <h1 class="section-title">Industrial</h1>
+    </header><!-- sect-heading -->
+    <div class="row">
+        <div class="col-md-3 mt-3" *ngFor="let product of productsArray">
+          <div class="card card-product" style="height: 480px;">
+            <div class="card-sl">
+              <div class="card-image">
+                <a routerLink="/product/{{ product.id }}" class="img-wrap"><img src="{{ product.Product_pic }}" /></a>
+              </div>
+              <figcaption class="info-wrap">
+                <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
+                <div class="card-heading">
+                  <a routerLink="/product/{{ product.id }}" class="title" style=" text-decoration: none;"><p >{{ product.Name }}</p></a>
+                </div>
+                <div class="card-text">
+                    ${{ product.Price }}
+                </div>
+                <a href="#" class="card-button"><i class="fa fa-shopping-cart mt-1 me-2"></i> Añadir al carrito</a>
+              </figcaption>
+            </div>
+          </div>
+        </div> <!-- col.// -->
+    </div> <!-- row.// -->
+    
+    </div><!-- container // -->
+    </section>

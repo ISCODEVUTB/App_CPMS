@@ -1,0 +1,32 @@
+:root{
+
+    --body-font: 'Poppins', Arial;
+  
+  
+    --font-h1: 2rem;
+    --font-h2: 1rem;
+    --font-h3: 0.5rem;
+  
+  
+    --green-color: #42995A;
+    --red-color: #E26767;
+}
+  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: var(--body-font);
+    background-color: rgb(187, 183, 183); 
+}
+
+ul{
+    list-style: none;
+}
+
+button{
+    cursor: pointer;
+}

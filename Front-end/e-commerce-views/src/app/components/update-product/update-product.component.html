@@ -1,0 +1,48 @@
+<section class="section-main bg padding-y">
+    <div class="container">
+        <form action="/">
+            <div class="row g-3 mb-3">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Nombre" aria-label="name" required="true" oninput="this.setCustomValidity('')"oninvalid="this.setCustomValidity('Debes llenar este campo')">
+                </div>
+                <div class="col">
+                  <input type="number" class="form-control" placeholder="Precio $$" aria-label="price" min="1000" step="1000" required="true" oninput="this.setCustomValidity('')"oninvalid="this.setCustomValidity('Debes llenar este campo')">
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col">
+                  <textarea type="text" class="form-control" placeholder="Descripción" aria-label="description" required="true" oninput="this.setCustomValidity('')"oninvalid="this.setCustomValidity('Debes llenar este campo')"></textarea>
+                </div>
+                <div class="col">
+                  <select id="inputState" class="form-select" aria-placeholder="Tipo" required="true" oninput="this.setCustomValidity('')"oninvalid="this.setCustomValidity('Debes llenar este campo')">
+                    <option selected disabled value="">Tipo...</option>
+                    <option value="L">Limpieza</option>
+                    <option value="H">Hogar</option>
+                    <option value="I">Industrial</option>
+                  </select>
+                </div>
+            </div>
+            <div class="row g-3 mt-1">
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Cantidad" aria-label="Quantity" min="1" step="1" required="true" oninput="this.setCustomValidity('')"oninvalid="this.setCustomValidity('Debes llenar este campo')">
+                </div>
+                <div class="col">
+                  <input type="file" class="form-control" aria-label="photo" id="formFile">
+                </div>
+            </div>
+            <div class="row mb-3 mt-3">
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="gridCheck1" value="false">
+                  <label class="form-check-label" for="gridCheck1">
+                    Active
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success" style="font-size: 25px; font-weight:600; padding-left: 6rem; padding-right: 6rem;">Actualizar producto</button>
+            </div>
+          </form>
+    </div>
+</section>

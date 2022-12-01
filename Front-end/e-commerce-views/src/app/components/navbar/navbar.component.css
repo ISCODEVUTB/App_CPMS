@@ -1,0 +1,127 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins);
+
+html {
+    font-family: "Poppins" serif;
+    font-size: 15px;
+}
+
+.height{
+
+    height: 100vh;
+}
+
+.form{
+
+    position: relative;
+}
+
+.form .fa-search{
+
+    position: absolute;
+    top:15px;
+    left: 20px;
+    color: #9ca3af;
+
+}
+
+.form span{
+
+    position: absolute;
+    right: 17px;
+    top: 13px;
+    padding: 2px;
+    border-left: 1px solid #d1d5db;
+
+}
+
+.left-pan{
+    padding-left: 7px;
+}
+
+.left-pan i{
+   
+   padding-left: 10px;
+}
+
+.form-input{
+
+    height: 45px;
+    text-indent: 33px;
+    border-radius: 30px;
+}
+
+.form-input:focus{
+
+    box-shadow: none;
+    border:none;
+}
+
+.dropbtn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+  }
+  .dropdown a {
+    color: #343a40;
+  }
+  .dropdown a:hover {
+    color: #666;
+  }
+  .dropdown i {
+    color: #969696;
+  }
+  .dropdown form {
+    min-width: 280px;
+  }
+  .dropdown .title {
+    display: block;
+  }
+  .dropdown .notify {
+    position: absolute;
+    top: -3px;
+    right: -10px;
+  }
+  .dropdown:hover i {
+    color: #545454;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd; border-radius: 10px; color: #04AA6D;}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block; border-radius: 10px;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}

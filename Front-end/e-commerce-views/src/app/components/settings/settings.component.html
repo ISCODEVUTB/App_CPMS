@@ -1,0 +1,112 @@
+<section class="section">
+    <div class="section_form">
+        <form action="" method="post" id="profile-form">
+            <!-- configuracion de perfil -->
+            <div class="form-section">
+                <div class="form-section-save">
+                    <!-- Photo Container -->
+                    
+                    <div class="profile-photo">
+                        <input type="file" class="custom-file-input"/>
+                        <img *ngIf="hasPhoto == false" src="assets/images/logos/CameraUploadPic.png" alt="profile-picture" />
+                        <img *ngIf="hasPhoto == true" src="assets/images/logos/profile.jpeg" alt="profile-picture" style="object-fit: cover; padding: 0;"/>
+                    </div>
+
+                    <div>
+                    <button form="profile-form">guardar cambios</button>
+                    </div>
+                </div>
+
+
+                <h1>Configuracion de perfil </h1>
+                <div class="form-section-lists">
+                    <ul class="form-section__profile-list">
+                    <li class="profile-item--label">
+                        <label>nombre</label>
+                    </li>
+                    <li class="profile-item--label">
+                        <label>apellido</label>
+                    </li>
+                    </ul>
+
+                    <ul class="form-section__profile-list">
+                    <li class="profile-item--input">
+                        <input type="text"/>
+                    </li>
+                    <li class="profile-item--input">
+                        <input type="text"/>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- configuracion de la cuenta -->
+            <div class="form-section">
+                <br>
+                <h1>configuracion de la cuenta</h1>
+                <div class="form-section-lists">
+                    <ul class="form-section__profile-list">
+                        <li class="profile-item--label">
+                        <label>nombre de usuario</label>
+                        </li>
+                        <li class="profile-item--label">
+                        <label>email</label>
+                        </li>
+                        <li class="profile-item--label">
+                        <label>contraseña</label>
+                        </li>
+                    </ul>
+                    <ul class="form-section__profile-list">
+                        <li class="profile-item--input">
+                        <input type="text" />
+                        </li>
+                        <li class="profile-item--input">
+                        <input type="email" />
+                        </li>
+                        <li class="profile-item--input">
+                        <input type="password" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- cambiar contraseña -->
+            <div class="form-section">
+                <br>
+                <h1>contraseña nueva</h1>
+                <div class="form-section-lists">
+                    <ul class="form-section__profile-list">
+                    <li class="profile-item--label">
+                        <label>contraseña nueva</label>
+                    </li>
+                    <li class="profile-item--label">
+                        <label>repetir contraseña</label>
+                    </li>
+                    <li class="profile-item--label">
+                        <label>contraseña actual</label>
+                    </li>
+                    </ul>
+                    <ul class="form-section__profile-list">
+                    <li class="profile-item--input">
+                        <input type="password" />
+                    </li>
+                    <li class="profile-item--input">
+                        <input type="password" />
+                    </li>
+                    <li class="profile-item--input">
+                        <input type="password" />
+                    </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- eliminar cuenta -->
+            <div class="form-section-delete">
+                <ul>
+                    <h1>Eliminar cuenta</h1>
+                    <p class="text">si borras tu cuenta, tus datos desapareceran para siempre.</p>
+                </ul>
+                <button>eliminar cuenta</button>
+            </div>
+        </form>
+    </div>
+</section>

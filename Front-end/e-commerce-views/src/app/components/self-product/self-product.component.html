@@ -1,0 +1,56 @@
+<section class="section-main bg padding-y">
+    <div class="container">
+        <div class="row">
+            <div class="banner-wrap">
+                <div class="pd-wrap">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="{{ productsArray.Product_pic }}" class="responsive">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product-dtl">
+                                    <div class="product-info-header">
+                                        <div class="product-info">
+                                            <div class="product-name">{{ productsArray.Name }}</div>
+                                            <div class="product-price-discount mt-4"><span>${{ productsArray.Price }}</span></div>
+                                        </div>
+                                        <a href="#" class="heart"><i class="fa fa-heart"></i></a>
+                                    </div>
+                                    <div style="display:flex; margin-bottom: 35px;">
+                                        <img class="me-2" src="assets/images/logos/logo6.png" style="width: auto; height:30px">
+                                        <img class="me-3" src="assets/images/logos/logo7.png" style="width: auto; height:30px">
+                                        <img class="me-2" src="assets/images/logos/logo8.png" style="width: auto; height:30px">
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-stock">Stock disponible</div>
+                                    </div>
+                                    <div class="product-count">
+                                        <label for="size">Quantity:</label>
+                                        <input class="quantity ms-2" id="id_form-0-quantity" min="1" max= "{{ productsArray.Quantity }}" name="form-0-quantity" value="1" type="number">
+                                        <label class="ms-3" style="font-size: 14px;">Diponible en stock {{productsArray.Quantity }}</label>
+                                        <a routerLink="/carrito" class="round-black-btn"><h6 class="cart-text">Añadir al carrito</h6></a>
+                                        <a routerLink="/actualizar" class="round-black-btn"><h6 class="cart-text">Editar producto</h6></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info-tabs">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                  <li class="nav-item">
+                                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Descripción</a>
+                                  </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                    {{ productsArray.Desc }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- row.// -->
+    </div> <!-- container //  -->
+</section>
+

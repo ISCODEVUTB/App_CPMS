@@ -1,0 +1,25 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins);
+
+button {
+    font-family: "Poppins" serif;
+    font-size: 15px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.link-muted { color: #aaa; } .link-muted:hover { color: #307243; }
+
+.responsive {
+    width: 100%;
+    height: 370px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+.container{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
